@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Nyarlana Jomain Floriand 
+Main-Class: gyromite.Main
+

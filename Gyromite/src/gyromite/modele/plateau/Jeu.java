@@ -9,6 +9,7 @@ import gyromite.modele.deplacements.Controle4Directions;
 import gyromite.modele.deplacements.Direction;
 import gyromite.modele.deplacements.Gravite;
 import gyromite.modele.deplacements.Ordonnanceur;
+import gyromite.modele.deplacements.Colonne;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -64,7 +65,15 @@ public class Jeu {
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
 
-        Colonne.getInstance().addEntiteDynamique();
+        gyromite.modele.plateau.Colonne c = new gyromite.modele.plateau.Colonne(this,true);
+        gyromite.modele.plateau.Colonne c2 = new gyromite.modele.plateau.Colonne(this,true);
+        gyromite.modele.plateau.Colonne c3 = new gyromite.modele.plateau.Colonne(this,false);
+        addEntite(c,5,5);
+        addEntite(c2,5,4);
+        addEntite(c3,8,4);
+        Colonne.getInstance().addEntiteDynamique(c);
+        Colonne.getInstance().addEntiteDynamique(c2);
+        Colonne.getInstance().addEntiteDynamique(c3);
         ordonnanceur.add(Colonne.getInstance());
 
         // murs extérieurs horizontaux

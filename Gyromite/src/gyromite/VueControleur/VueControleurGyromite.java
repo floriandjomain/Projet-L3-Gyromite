@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
@@ -14,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import gyromite.modele.deplacements.Controle4Directions;
+import gyromite.modele.deplacements.Colonne;
 import gyromite.modele.deplacements.Direction;
 import gyromite.modele.plateau.*;
 
@@ -33,7 +35,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoHero;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
-    private ImageIcon icoColonne;
+    private ImageIcon icoColonneR, icoColonneB;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -57,6 +59,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
                     case KeyEvent.VK_DOWN : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
                     case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
+                    case KeyEvent.VK_R : Colonne.getInstance().moveR(); break;
+                    case KeyEvent.VK_B : Colonne.getInstance().moveB(); break;
                 }
             }
         });
@@ -68,7 +72,19 @@ public class VueControleurGyromite extends JFrame implements Observer {
         System.out.println((new java.io.File( "." )).getAbsolutePath());
         icoHero = chargerIcone(path+"Pacman.png");
         icoVide = chargerIcone(path+"Vide.png");
-        icoColonne = chargerIcone(path+"Colonne.png");
+        ImageIcon icoColonne = chargerIcone(path+"Colonne.png");
+        BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
+        BufferedImage imColonneB = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
+
+        for(int x=0; x<icoColonne.getIconWidth(); x++)
+            for(int y=0; y<icoColonne.getIconWidth(); y++)
+            {
+                imColonneR.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
+                imColonneB.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
+            }
+
+        icoColonneR = new ImageIcon(imColonneR);
+        icoColonneB = new ImageIcon(imColonneB);
         icoMur = chargerIcone(path+"Mur.png");
     }
 
@@ -117,7 +133,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoHero);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
-                } else if (jeu.getGrille()[x][y] instanceof Colonne) {
+                } else if (jeu.getGrille()[x][y] instanceof gyromite.modele.plateau.Colonne) {
                     tabJLabel[x][y].setIcon(icoColonne);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);

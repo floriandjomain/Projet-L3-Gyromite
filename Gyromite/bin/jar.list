@@ -2,6 +2,7 @@ gyromite/Main.class
 
 gyromite/modele/deplacements/Colonne.class
 gyromite/modele/deplacements/Controle4Directions.class
+gyromite/modele/deplacements/Controle4Directions$1.class
 gyromite/modele/deplacements/Direction.class
 gyromite/modele/deplacements/Gravite.class
 gyromite/modele/deplacements/IA.class

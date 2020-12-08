@@ -35,7 +35,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoHero;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
-    private ImageIcon icoColonneR, icoColonneB;
+    private ImageIcon icoSmick;
+    private ImageIcon icoColonne;
+    //private ImageIcon icoColonneR, icoColonneB;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -70,10 +72,11 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private void chargerLesIcones() {
         String path = "res/Images/";
         System.out.println((new java.io.File( "." )).getAbsolutePath());
-        icoHero = chargerIcone(path+"Pacman.png");
-        icoVide = chargerIcone(path+"Vide.png");
-        ImageIcon icoColonne = chargerIcone(path+"Colonne.png");
-        BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
+        icoHero  = chargerIcone(path+"Heros.png");
+        icoSmick = chargerIcone(path+"Smick.png");
+        icoVide  = chargerIcone(path+"Vide.png");
+        icoColonne = chargerIcone(path+"Colonne.png");
+        /*BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
         BufferedImage imColonneB = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
 
         for(int x=0; x<icoColonne.getIconWidth(); x++)
@@ -82,9 +85,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 imColonneR.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
                 imColonneB.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
             }
-
-        icoColonneR = new ImageIcon(imColonneR);
-        icoColonneB = new ImageIcon(imColonneB);
+        */
+        //icoColonneR = icoColonne;
+        //icoColonneB = icoColonne;
         icoMur = chargerIcone(path+"Mur.png");
     }
 

@@ -62,6 +62,12 @@ public class Jeu {
         g.addEntiteDynamique(hector);
         ordonnanceur.add(g);
 
+        Bot b = new Bot(this);
+        addEntite(b, 5, 12);
+
+        IA.getInstance().addEntiteDynamique(b);
+        ordonnanceur.add(IA.getInstance());
+
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
 

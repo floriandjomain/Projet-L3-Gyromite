@@ -17,9 +17,9 @@ public class IA extends RealisateurDeDeplacement
     {
         boolean ret = false;
 
-        // for(EntiteDynamique e : lstEntitesDynamiques)
-        //     if(e.seDeplacer())
-        //         ret = true;
+        for(EntiteDynamique e : lstEntitesDynamiques)
+            if((Bot)e.seDeplacer())
+                ret = true;
 
         return ret;
     }

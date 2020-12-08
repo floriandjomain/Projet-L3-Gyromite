@@ -1,6 +1,7 @@
 package gyromite.modele.deplacements;
 
 import gyromite.modele.plateau.EntiteDynamique;
+import gyromite.modele.plateau.Bot;
 
 public class IA extends RealisateurDeDeplacement
 {
@@ -20,7 +21,7 @@ public class IA extends RealisateurDeDeplacement
         boolean ret = false;
 
         for(EntiteDynamique e : lstEntitesDynamiques)
-            if((Bot)e.seDeplacer())
+            if(((Bot) e).seDeplacer())
                 ret = true;
 
         return ret;

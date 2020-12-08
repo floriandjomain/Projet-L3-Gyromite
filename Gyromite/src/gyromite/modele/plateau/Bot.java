@@ -5,6 +5,8 @@
  */
 package gyromite.modele.plateau;
 
+import gyromite.modele.deplacements.Direction;
+
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -27,21 +29,21 @@ public class Bot extends EntiteDynamique {
         boolean ret = false;
 
         r.setSeed((int)(java.lang.Math.random()*49195412));
-        Direction d = Direction.get(r.nextInt()%4);
+        int i = r.nextInt()%4;
 
-        switch(d)
+        switch(i)
         {
-            case gauche:
-            case droite:
+            case 0:
+            case 1:
             {
-                Entite eBas = regarderDansLaDirection(d);
+                Entite eBas = regarderDansLaDirection((i==0?Direction.gauche:Direction.droite));
                 if (eBas != null && eBas.peutServirDeSupport()) {
-                    if (avancerDirectionChoisie(d))
+                    if (avancerDirectionChoisie((i==0?Direction.gauche:Direction.droite)))
                         ret = true;
                 }
                 break;
             }
-            case haut:
+            case 2:
             {
                 // on ne peut pas sauter sans prendre appui
                 // (attention, test d'appui réalisé à partir de la position courante, si la gravité à été appliquée, il ne s'agit pas de la position affichée, amélioration possible)

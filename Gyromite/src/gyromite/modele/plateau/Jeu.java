@@ -65,7 +65,7 @@ public class Jeu {
         ordonnanceur.add(g);
 
         Bot b = new Bot(this);
-        addEntite(b, 5, 12);
+        addEntite(b, 5, 9);
 
         IA.getInstance().addEntiteDynamique(b);
         ordonnanceur.add(IA.getInstance());

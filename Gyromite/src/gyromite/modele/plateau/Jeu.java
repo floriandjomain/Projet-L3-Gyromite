@@ -172,7 +172,9 @@ public class Jeu {
     }
 
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
-        grilleEntites[pCourant.x][pCourant.y] = null;
+        Entite bg = grilleEntites[pCourant.x][pCourant.y];
+        grilleEntites[pCourant.x][pCourant.y] = e.background;
+        e.background = bg;
         grilleEntites[pCible.x][pCible.y] = e;
         map.put(e, pCible);
     }

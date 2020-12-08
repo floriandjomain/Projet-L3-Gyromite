@@ -21,4 +21,33 @@ public class Bot extends EntiteDynamique {
     public boolean peutEtreEcrase() { return true; }
     public boolean peutServirDeSupport() { return true; }
     public boolean peutPermettreDeMonterDescendre() { return false; }
+
+    public boolean seDeplacer()
+    {
+        boolean ret = false;
+
+        r.setSeed((int)(java.lang.Math.random()*49195412));
+        Direction d = Direction.get(r.nextInt()%4);
+
+        switch(d)
+        {
+            case gauche:
+            case droite:
+                if (e.avancerDirectionChoisie(directionCourante))
+                    ret = true;
+                break;
+
+            case haut:
+                // on ne peut pas sauter sans prendre appui
+                // (attention, test d'appui réalisé à partir de la position courante, si la gravité à été appliquée, il ne s'agit pas de la position affichée, amélioration possible)
+                Entite eBas = regarderDansLaDirection(Direction.bas);
+                if (eBas != null && eBas.peutServirDeSupport()) {
+                    if (avancerDirectionChoisie(Direction.haut))
+                        ret = true;
+                }
+                break;
+        }
+
+        return ret;
+    }
 }

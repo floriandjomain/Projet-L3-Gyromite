@@ -6,14 +6,17 @@ import java.util.Scanner; // Import the Scanner class to read text files
 
 public class Parse {
   protected File _file;
+  protected Jeu _jeu;
 
-  public Parse(String filepath) {
+  public Parse(String filepath, Jeu jeu) {
     _file = new File(filepath);
+    _jeu = jeu;
   }
 
   public void readFile() {
     try {
       Scanner scan = new Scanner(_file);
+      Gravite g = new Gravite();
       while (scan.hasNextLine()) {
         String line = scan.nextLine();
         String [] params = line.split(",");
@@ -25,21 +28,42 @@ public class Parse {
 
           switch (character) {
             case 0 : //heros
+              Heros h = new Heros(_jeu);
+              _jeu.addEntite(h, posX, posY);
+              Controle4Directions.getInstance().addEntiteDynamique(h);
+              g.addEntiteDynamique(h);
               break;
 
             case 1 : //mur
+              _jeu.addEntite(new Mur(_jeu), posX, posY);
               break;
 
             case 2 : //corde
+              _jeu.addEntite(new Corde(_jeu), posX, posY);
               break;
 
-            case 3 : //Colonne
+            case 3 : //Colonne bleue
+              gyromite.modele.plateau.Colonne cb = new gyromite.modele.plateau.Colonne(_jeu, false);
+              _jeu.addEntite(cb, posX, posY);
+              Colonne.getInstance().addEntiteDynamique(cb);
               break;
 
-            case 4 : //Bot
+            case 4 : //Colonne rouge
+              gyromite.modele.plateau.Colonne cr = new gyromite.modele.plateau.Colonne(_jeu, true);
+              _jeu.addEntite(cr, posX, posY);
+              Colonne.getInstance().addEntiteDynamique(cr);
               break;
 
-            case 5 : //Bombe
+            case 5 : //Bot ; IA
+              Bot bot = new Bot(_jeu);
+              _jeu.addEntite(bot, posX, posY);
+              IA.getInstance().addEntiteDynamique(bot);
+              break;
+
+            case 6 : //Bombe : gravité
+              Bombe b = new Bombe(_jeu);
+              _jeu.addEntite(b, posX, posY);
+              g.addEntiteDynamique(b);
               break;
           }
         }
@@ -48,6 +72,12 @@ public class Parse {
           e.printStackTrace();
         }
       }
+
+      //ordonnanceur
+      _jeu.getOrdonnanceur().add(Controle4Directions.getInstance());
+      _jeu.getOrdonnanceur().add(Colonne.getInstance());
+      _jeu.getOrdonnanceur().add(IA.getInstance());
+      _jeu.getOrdonnanceur().add(g);
 
       scan.close();
     }

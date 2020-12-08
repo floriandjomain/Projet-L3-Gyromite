@@ -33,11 +33,16 @@ public class Bot extends EntiteDynamique {
         {
             case gauche:
             case droite:
-                if (e.avancerDirectionChoisie(directionCourante))
-                    ret = true;
+            {
+                Entite eBas = regarderDansLaDirection(d);
+                if (eBas != null && eBas.peutServirDeSupport()) {
+                    if (avancerDirectionChoisie(d))
+                        ret = true;
+                }
                 break;
-
+            }
             case haut:
+            {
                 // on ne peut pas sauter sans prendre appui
                 // (attention, test d'appui réalisé à partir de la position courante, si la gravité à été appliquée, il ne s'agit pas de la position affichée, amélioration possible)
                 Entite eBas = regarderDansLaDirection(Direction.bas);
@@ -46,6 +51,7 @@ public class Bot extends EntiteDynamique {
                         ret = true;
                 }
                 break;
+            }
         }
 
         return ret;

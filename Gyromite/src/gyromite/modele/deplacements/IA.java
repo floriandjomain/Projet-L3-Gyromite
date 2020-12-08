@@ -1,5 +1,7 @@
 package gyromite.modele.deplacements;
 
+import gyromite.modele.plateau.EntiteDynamique;
+
 public class IA extends RealisateurDeDeplacement
 {
     // Design pattern singleton

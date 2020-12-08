@@ -5,11 +5,7 @@
  */
 package gyromite.modele.plateau;
 
-import gyromite.modele.deplacements.Controle4Directions;
-import gyromite.modele.deplacements.Direction;
-import gyromite.modele.deplacements.Gravite;
-import gyromite.modele.deplacements.Ordonnanceur;
-import gyromite.modele.deplacements.Colonne;
+import gyromite.modele.deplacements.*;
 
 import java.awt.Point;
 import java.util.HashMap;

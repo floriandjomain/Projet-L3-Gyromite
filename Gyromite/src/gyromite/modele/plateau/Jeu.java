@@ -180,7 +180,7 @@ public class Jeu {
     }
 
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
-        Entite bg = grilleEntites[pCourant.x][pCourant.y];
+        Entite bg = grilleEntites[pCible.x][pCible.y];
         grilleEntites[pCourant.x][pCourant.y] = e.background;
         e.background = bg;
         grilleEntites[pCible.x][pCible.y] = e;

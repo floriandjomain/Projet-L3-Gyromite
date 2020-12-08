@@ -37,6 +37,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoMur;
     private ImageIcon icoSmick;
     private ImageIcon icoColonne;
+    private ImageIcon icoBombe;
+    private ImageIcon icoEchelle;
     //private ImageIcon icoColonneR, icoColonneB;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -72,10 +74,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private void chargerLesIcones() {
         String path = "res/Images/";
         System.out.println((new java.io.File( "." )).getAbsolutePath());
-        icoHero  = chargerIcone(path+"Heros.png");
-        icoSmick = chargerIcone(path+"Smick.png");
-        icoVide  = chargerIcone(path+"Vide.png");
+        icoHero    = chargerIcone(path+"Heros.png");
+        icoSmick   = chargerIcone(path+"Smick.png");
+        icoVide    = chargerIcone(path+"Vide.png");
         icoColonne = chargerIcone(path+"Colonne.png");
+        icoBombe   = chargerIcone(path+"Bombe.png");
+        //icoEchelle = ;
         /*BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
         BufferedImage imColonneB = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
 

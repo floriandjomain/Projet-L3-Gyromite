@@ -13,7 +13,6 @@ import java.util.HashMap;
  */
 public class Colonne extends RealisateurDeDeplacement
 {
-    private boolean top;
     private boolean moveR;
     private boolean moveB;
 
@@ -29,7 +28,6 @@ public class Colonne extends RealisateurDeDeplacement
 
     private Colonne()
     {
-        top  = false;
         moveR = false;
         moveB = false;
     }
@@ -41,7 +39,7 @@ public class Colonne extends RealisateurDeDeplacement
             boolean ret = false;
 
             ArrayList<gyromite.modele.plateau.Colonne> colonnesDep = new ArrayList<gyromite.modele.plateau.Colonne>();
-            Direction d = (top?Direction.bas:Direction.haut);
+            Direction d;
 
             boolean dep_sup;
             do
@@ -51,6 +49,7 @@ public class Colonne extends RealisateurDeDeplacement
                 for (EntiteDynamique e : lstEntitesDynamiques)
                 {
                     gyromite.modele.plateau.Colonne c = (gyromite.modele.plateau.Colonne) e;
+                    d = (c.top()?Direction.bas:Direction.haut);
 
                     if(!colonnesDep.contains(c) && (moveR && c.estRouge() || moveB && !c.estRouge()))
                     {
@@ -58,14 +57,13 @@ public class Colonne extends RealisateurDeDeplacement
                         {
                             dep_sup = true;
                             colonnesDep.add(c);
+                            c.topChange();
                         }
                     }
                 }
             } while (dep_sup);
 
-
             moveR = moveB = false;
-            top  = !top;
 
             return ret;
         }

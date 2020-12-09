@@ -49,11 +49,26 @@ public class Colonne extends RealisateurDeDeplacement
                 for (EntiteDynamique e : lstEntitesDynamiques)
                 {
                     gyromite.modele.plateau.Colonne c = (gyromite.modele.plateau.Colonne) e;
-                    d = (c.top()?Direction.bas:Direction.haut);
 
                     if(!colonnesDep.contains(c) && (moveR && c.estRouge() || moveB && !c.estRouge()))
                     {
-                        if(c.avancerDirectionChoisie(d))
+                        d = (c.top()?Direction.bas:Direction.haut);
+
+                        if(d==Direction.haut)
+                        {
+                            Entite ed = c.regarderDansLaDirection(d);
+
+                            if(ed!=null && ed instanceof Heros)
+                            {
+                                ((Heros) ed).avancerDirectionChoisie(d);
+                                c.avancerDirectionChoisie(d);
+                                dep_sup = true;
+                                colonnesDep.add(c);
+                                c.topChange();
+                            }
+                        }
+
+                        if(!colonnesDep.contains(c) && c.avancerDirectionChoisie(d))
                         {
                             dep_sup = true;
                             colonnesDep.add(c);

@@ -24,6 +24,7 @@ public class Jeu {
     public static final int SIZE_Y = 10;
 
     public static int nb_bombes = 0;
+    public static int points = 0;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -124,7 +125,7 @@ public class Jeu {
         map.put(e, new Point(x, y));
     }
 
-    private void removeEntite(Entite e)
+    public void removeEntite(Entite e)
     {
         grilleEntites[map.get(e).x][map.get(e).y] = null;
         map.remove(e);
@@ -232,31 +233,42 @@ public class Jeu {
         return ordonnanceur;
     }
 
-    public void killBomb()
+    public void ramasser()
     {
         int x = map.get(hector).x;
         int y = map.get(hector).y;
 
         Entite e;
 
+        boolean aRamasseObj = false;
+
         for(int i=-1; i<2; i++)
             for(int j=-1; j<2; j++)
             {
-                e = objetALaPosition(new Point(x+i,y+j));
-
-                System.out.println((x+i) + "," + (y+j) + " : " + (e!=null && e instanceof Bombe));
-
-                if(e!=null && e instanceof Bombe)
+                if(!aRamasseObj)
                 {
-                    removeEntite(e);
-                    nb_bombes--;
+                    e = objetALaPosition(new Point(x+i,y+j));
+
+                    if(e!=null && (e instanceof Bombe || e instanceof Bonus))
+                    {
+                        removeEntite(e);
+                        if(e instanceof Bombe)
+                        {
+                            points+=100;
+                            nb_bombes--;
+                        }
+                        else
+                        {
+                            points+=200;
+                        }
+                        aRamasseObj = true;
+                    }
                 }
             }
     }
 
     public boolean finished()
     {
-        System.out.println("Il reste "+nb_bombes+" bombe"+(nb_bombes>1?"s":""));
         return nb_bombes==0 || hector.estMort();
     }
 }

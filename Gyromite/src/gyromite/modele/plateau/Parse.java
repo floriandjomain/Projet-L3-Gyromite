@@ -78,9 +78,14 @@ public class Parse {
               break;
 
             case 'b' : //Bombe : gravité
-              Bombe b = new Bombe(_jeu);
-              _jeu.addEntite(b, posX, posY);
-              g.addEntiteDynamique(b);
+              Bombe bombe = new Bombe(_jeu);
+              _jeu.addEntite(bombe, posX, posY);
+              g.addEntiteDynamique(bombe);
+              break;
+            case '+' : //Bonus : gravité
+              Bonus bonus = new Bonus(_jeu);
+              _jeu.addEntite(bonus, posX, posY);
+              g.addEntiteDynamique(bonus);
               break;
             default:
               System.out.println("commentaire croisé");

@@ -52,7 +52,7 @@ public class Colonne extends RealisateurDeDeplacement
 
                     if(!colonnesDep.contains(c) && (moveR && c.estRouge() || moveB && !c.estRouge()))
                     {
-                        d = (c.top()?Direction.bas:Direction.haut);
+                        d = (c.estVerticale()?(c.top()?Direction.bas:Direction.haut):(c.top()?Direction.gauche:Direction.droite));
 
                         if(d==Direction.haut)
                         {

@@ -64,45 +64,8 @@ public class Jeu {
         return hector;
     }
 
-    private void initialisationDesEntites() {
-        /*hector = new Heros(this);
-        addEntite(hector, 2, 1);
-
-        Gravite g = new Gravite();
-        g.addEntiteDynamique(hector);
-        ordonnanceur.add(g);
-
-        Bot b = new Bot(this);
-        addEntite(b, 3, 2);
-        IA.getInstance().addEntiteDynamique(b);
-        g.addEntiteDynamique(b);
-
-        Bombe b2 = new Bombe(this);
-        Bombe b3 = new Bombe(this);
-        addEntite(b2,4,4);
-        addEntite(b3,8,4);
-        g.addEntiteDynamique(b2);
-        g.addEntiteDynamique(b3);
-
-        IA.getInstance().addEntiteDynamique(b);
-        ordonnanceur.add(IA.getInstance());
-
-        Controle4Directions.getInstance().addEntiteDynamique(hector);
-        ordonnanceur.add(Controle4Directions.getInstance());
-
-        gyromite.modele.plateau.Colonne c = new gyromite.modele.plateau.Colonne(this,true);
-        gyromite.modele.plateau.Colonne c2 = new gyromite.modele.plateau.Colonne(this,true);
-        gyromite.modele.plateau.Colonne c3 = new gyromite.modele.plateau.Colonne(this,false);
-        addEntite(c,5,5);
-        addEntite(c2,5,4);
-        addEntite(c3,8,4);
-        Colonne.getInstance().addEntiteDynamique(c);
-        Colonne.getInstance().addEntiteDynamique(c2);
-        Colonne.getInstance().addEntiteDynamique(c3);
-        ordonnanceur.add(Colonne.getInstance());
-
-        addEntite(new Mur(this), 2, 6);
-        addEntite(new Mur(this), 3, 6);*/
+    private void initialisationDesEntites()
+    {
         Parse p = new Parse("res/level.txt",this);
         p.readFile();
     }

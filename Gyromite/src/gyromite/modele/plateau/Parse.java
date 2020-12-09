@@ -56,14 +56,14 @@ public class Parse {
                   if(params[0].charAt(1)=='b')
                   {
                       //Colonne bleue
-                      gyromite.modele.plateau.Colonne cb = new gyromite.modele.plateau.Colonne(_jeu, false);
+                      gyromite.modele.plateau.Colonne cb = new gyromite.modele.plateau.Colonne(_jeu, false, params[0].charAt(2)=='v');
                       _jeu.addEntite(cb, posX, posY);
                       Colonne.getInstance().addEntiteDynamique(cb);
                   }
                   else
                   {
                       //Colonne rouge
-                      gyromite.modele.plateau.Colonne cr = new gyromite.modele.plateau.Colonne(_jeu, true);
+                      gyromite.modele.plateau.Colonne cr = new gyromite.modele.plateau.Colonne(_jeu, true, params[0].charAt(2)=='v');
                       _jeu.addEntite(cr, posX, posY);
                       Colonne.getInstance().addEntiteDynamique(cr);
                   }

@@ -1,6 +1,8 @@
 package gyromite.VueControleur;
 
 import java.awt.GridLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -18,6 +20,8 @@ import gyromite.modele.deplacements.Controle4Directions;
 import gyromite.modele.deplacements.Colonne;
 import gyromite.modele.deplacements.Direction;
 import gyromite.modele.plateau.*;
+
+import java.awt.geom.AffineTransform;
 
 
 /** Cette classe a deux fonctions :
@@ -40,7 +44,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoBombe;
     private ImageIcon icoBonus;
     private ImageIcon icoCorde;
-    private ImageIcon[][] icoColonne = new ImageIcon[2][3];
+    private ImageIcon[][][] icoColonne = new ImageIcon[2][3][2];
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -80,16 +84,24 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoHero    = chargerIcone(path+"Heros.png");
         icoSmick   = chargerIcone(path+"Smick.png");
         icoVide    = chargerIcone(path+"Vide.png");
-        icoColonne[0][0] = chargerIcone(path+"ColonneR_top.png");
-        icoColonne[0][1] = chargerIcone(path+"ColonneR.png");
-        icoColonne[0][2] = chargerIcone(path+"ColonneR_bot.png");
-        icoColonne[1][0] = chargerIcone(path+"ColonneB_top.png");
-        icoColonne[1][1] = chargerIcone(path+"ColonneB.png");
-        icoColonne[1][2] = chargerIcone(path+"ColonneB_bot.png");
+
+        icoColonne[0][0][0] = chargerIcone(path+"ColonneR_top_v.png");
+        icoColonne[0][0][1] = chargerIcone(path+"ColonneR_top_h.png");
+        icoColonne[0][1][0] = chargerIcone(path+"ColonneR_v.png");
+        icoColonne[0][1][1] = chargerIcone(path+"ColonneR_h.png");
+        icoColonne[0][2][0] = chargerIcone(path+"ColonneR_bot_v.png");
+        icoColonne[0][2][1] = chargerIcone(path+"ColonneR_bot_h.png");
+        icoColonne[1][0][0] = chargerIcone(path+"ColonneB_top_v.png");
+        icoColonne[1][0][1] = chargerIcone(path+"ColonneB_top_h.png");
+        icoColonne[1][1][0] = chargerIcone(path+"ColonneB_v.png");
+        icoColonne[1][1][1] = chargerIcone(path+"ColonneB_h.png");
+        icoColonne[1][2][0] = chargerIcone(path+"ColonneB_bot_v.png");
+        icoColonne[1][2][1] = chargerIcone(path+"ColonneB_bot_h.png");
+
         icoBombe = chargerIcone(path+"Bombe.png");
         icoBonus = chargerIcone(path+"Bonus.png");
-        icoCorde = chargerIcone(path+"Echelle.png");
-        icoMur = chargerIcone(path+"Mur.png");
+        icoCorde = chargerIcone(path+"Corde.png");
+        icoMur   = chargerIcone(path+"Mur.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -107,7 +119,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("Gyromite - ("+jeu.nb_bombes+"/"+nb_bombes_debut+") bombes - "+jeu.points+" points");
-        
+
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
@@ -143,16 +155,30 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 } else if (jeu.getGrille()[x][y] instanceof gyromite.modele.plateau.Colonne) {
                     boolean coul = ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y]).estRouge();
                     int pos  = 1;
+                    boolean vertical = ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y]).estVerticale();
 
-                    if(y==0 || !(jeu.getGrille()[x][y-1] instanceof gyromite.modele.plateau.Colonne)
+                    if(vertical)
+                    {
+                        if(y==0 || !(jeu.getGrille()[x][y-1] instanceof gyromite.modele.plateau.Colonne)
                             || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y-1]).estRouge()!=coul) //if top
-                        pos--;
+                            pos--;
 
-                    if(y==sizeY-1 || !(jeu.getGrille()[x][y+1] instanceof gyromite.modele.plateau.Colonne)
-                    || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y+1]).estRouge()!=coul)//if bottom
-                        pos++;
+                        if(y==sizeY-1 || !(jeu.getGrille()[x][y+1] instanceof gyromite.modele.plateau.Colonne)
+                        || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y+1]).estRouge()!=coul)//if bottom
+                            pos++;
+                    }
+                    else
+                    {
+                        if(x==0 || !(jeu.getGrille()[x-1][y] instanceof gyromite.modele.plateau.Colonne)
+                            || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x-1][y]).estRouge()!=coul) //if left
+                            pos--;
 
-                    tabJLabel[x][y].setIcon(icoColonne[(coul?0:1)][pos]);
+                        if(x==sizeX-1 || !(jeu.getGrille()[x+1][y] instanceof gyromite.modele.plateau.Colonne)
+                        || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x+1][y]).estRouge()!=coul)//if right
+                            pos++;
+                    }
+
+                    tabJLabel[x][y].setIcon(icoColonne[(coul?0:1)][pos][(vertical?0:1)]);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof Bonus) {

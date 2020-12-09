@@ -17,7 +17,6 @@ import java.awt.Point;
 import java.util.HashMap;
 
 /** Actuellement, cette classe gère les postions
- * (ajouter conditions de victoire, chargement du plateau, etc.)
  */
 public class Jeu {
 
@@ -67,11 +66,16 @@ public class Jeu {
         ordonnanceur.add(g);
 
         Bot b = new Bot(this);
-        addEntite(b, 5, 9);
+        addEntite(b, 3, 2);
+        IA.getInstance().addEntiteDynamique(b);
+        g.addEntiteDynamique(b);
 
         Bombe b2 = new Bombe(this);
+        Bombe b3 = new Bombe(this);
         addEntite(b2,4,4);
+        addEntite(b3,8,4);
         g.addEntiteDynamique(b2);
+        g.addEntiteDynamique(b3);
 
         IA.getInstance().addEntiteDynamique(b);
         ordonnanceur.add(IA.getInstance());
@@ -236,7 +240,6 @@ public class Jeu {
 
                 if(e!=null && e instanceof Bombe)
                 {
-                    System.out.println("Bombe trouvée !");
                     removeEntite(e);
                     NB_BOMBES--;
                 }
@@ -245,6 +248,6 @@ public class Jeu {
 
     public boolean finished()
     {
-        return NB_BOMBES==0;
+        return NB_BOMBES==0 && !hector.estMort();
     }
 }

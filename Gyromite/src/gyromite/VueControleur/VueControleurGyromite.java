@@ -145,6 +145,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoColonne);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
+                } else if (jeu.getGrille()[x][y] instanceof Bot) {
+                    tabJLabel[x][y].setIcon(icoSmick);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }
@@ -154,8 +156,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("update : "+jeu.finished());
-
         if(!jeu.finished())
             mettreAJourAffichage();
         else

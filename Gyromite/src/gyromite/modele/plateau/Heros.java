@@ -9,6 +9,8 @@ package gyromite.modele.plateau;
  * Héros du jeu
  */
 public class Heros extends EntiteDynamique {
+    private boolean estMort = false;
+
     public Heros(Jeu _jeu) {
         super(_jeu);
     }
@@ -16,4 +18,7 @@ public class Heros extends EntiteDynamique {
     public boolean peutEtreEcrase() { return true; }
     public boolean peutServirDeSupport() { return true; }
     public boolean peutPermettreDeMonterDescendre() { return false; };
+
+    public boolean estMort() { return estMort; }
+    public void mourir() { estMort = true; }
 }

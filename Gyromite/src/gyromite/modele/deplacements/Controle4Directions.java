@@ -2,6 +2,8 @@ package gyromite.modele.deplacements;
 
 import gyromite.modele.plateau.Entite;
 import gyromite.modele.plateau.EntiteDynamique;
+import gyromite.modele.plateau.Heros;
+import gyromite.modele.plateau.Bot;
 
 /**
  * Controle4Directions permet d'appliquer une direction (connexion avec le clavier) à un ensemble d'entités dynamiques
@@ -26,6 +28,12 @@ public class Controle4Directions extends RealisateurDeDeplacement {
         boolean ret = false;
         for (EntiteDynamique e : lstEntitesDynamiques) {
             if (directionCourante != null)
+            {
+                if(e instanceof Heros && e.regarderDansLaDirection(directionCourante) instanceof Bot)
+                {
+                    ((Heros) e).mourir();
+                }
+
                 switch (directionCourante) {
                     case gauche:
                     case droite:
@@ -43,6 +51,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
                         }
                         break;
                 }
+            }
         }
 
         return ret;

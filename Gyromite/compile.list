@@ -9,9 +9,9 @@ src/gyromite/modele/deplacements/Ordonnanceur.java
 src/gyromite/modele/deplacements/RealisateurDeDeplacement.java
 
 src/gyromite/modele/plateau/Bot.java
-src/gyromite/modele/plateau/Echelle.java
 src/gyromite/modele/plateau/Bombe.java
 src/gyromite/modele/plateau/Colonne.java
+src/gyromite/modele/plateau/Corde.java
 src/gyromite/modele/plateau/Entite.java
 src/gyromite/modele/plateau/EntiteDynamique.java
 src/gyromite/modele/plateau/EntiteStatique.java

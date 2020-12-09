@@ -59,16 +59,10 @@ public class Colonne extends RealisateurDeDeplacement
                             Entite ed = c.regarderDansLaDirection(d);
 
                             if(ed!=null && ed instanceof Heros)
-                            {
                                 ((Heros) ed).avancerDirectionChoisie(d);
-                                c.avancerDirectionChoisie(d);
-                                dep_sup = true;
-                                colonnesDep.add(c);
-                                c.topChange();
-                            }
                         }
 
-                        if(!colonnesDep.contains(c) && c.avancerDirectionChoisie(d))
+                        if(c.avancerDirectionChoisie(d))
                         {
                             dep_sup = true;
                             colonnesDep.add(c);

@@ -84,7 +84,8 @@ public class Jeu {
     {
         grilleEntites[map.get(e).x][map.get(e).y] = null;
         map.remove(e);
-        ordonnanceur.remove((EntiteDynamique)e);
+        if(e instanceof EntiteDynamique)
+            ordonnanceur.remove((EntiteDynamique)e);
     }
 
     /** Permet par exemple a une entité  de percevoir sont environnement proche et de définir sa stratégie de déplacement
@@ -228,10 +229,10 @@ public class Jeu {
     }
 
     public boolean loadLevel(int level) {
-      grilleEntites = new Entite[SIZE_X][SIZE_Y];
-      map.clear();
-      ordonnanceur.clear();
-      p = new Parse(this,"./res/"+level+"level.txt");
-      return p.readFile();
+        ordonnanceur.clear();
+        //map.clear();
+        grilleEntites = new Entite[SIZE_X][SIZE_Y];
+        p = new Parse(this,"./res/"+level+"level.txt");
+        return p.readFile();
     }
 }

@@ -101,18 +101,6 @@ public class Jeu {
         Colonne.getInstance().addEntiteDynamique(c3);
         ordonnanceur.add(Colonne.getInstance());
 
-        // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
-            addEntite(new Mur(this), x, 0);
-            addEntite(new Mur(this), x, 9);
-        }
-
-        // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
-            addEntite(new Mur(this), 0, y);
-            addEntite(new Mur(this), 19, y);
-        }
-
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);*/
         Parse p = new Parse("res/level.txt",this);
@@ -150,7 +138,7 @@ public class Jeu {
 
         Point pCible = calculerPointCible(pCourant, d);
 
-        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null) { // a adapter (collisions murs, etc.)
+        if (contenuDansGrille(pCible) && (objetALaPosition(pCible) == null || objetALaPosition(pCible).peutPermettreDeMonterDescendre())) { // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             switch (d) {
                 case bas:

@@ -20,5 +20,10 @@ public class Heros extends EntiteDynamique {
     public boolean peutPermettreDeMonterDescendre() { return false; };
 
     public boolean estMort() { return estMort; }
-    public void mourir() { estMort = true; }
+
+    public void mourir()
+    {
+        System.out.println("Partie Perdue");
+        estMort = true;
+    }
 }

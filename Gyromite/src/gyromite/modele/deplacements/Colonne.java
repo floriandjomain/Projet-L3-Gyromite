@@ -1,7 +1,8 @@
 package gyromite.modele.deplacements;
 
-import gyromite.modele.plateau.EntiteDynamique;
 import gyromite.modele.plateau.Entite;
+import gyromite.modele.plateau.EntiteDynamique;
+import gyromite.modele.plateau.Heros;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,38 +40,29 @@ public class Colonne extends RealisateurDeDeplacement
         {
             boolean ret = false;
 
-            ArrayList<gyromite.modele.plateau.Colonne> colonnesADep = new ArrayList<gyromite.modele.plateau.Colonne>();
+            ArrayList<gyromite.modele.plateau.Colonne> colonnesDep = new ArrayList<gyromite.modele.plateau.Colonne>();
             Direction d = (top?Direction.bas:Direction.haut);
 
-            for (EntiteDynamique e : lstEntitesDynamiques)
+            boolean dep_sup;
+            do
             {
-                gyromite.modele.plateau.Colonne c = (gyromite.modele.plateau.Colonne) e;
+                dep_sup = false;
 
-                if(moveR && c.estRouge() || moveB && !c.estRouge())
+                for (EntiteDynamique e : lstEntitesDynamiques)
                 {
-                    if(!c.avancerDirectionChoisie(d))
+                    gyromite.modele.plateau.Colonne c = (gyromite.modele.plateau.Colonne) e;
+
+                    if(!colonnesDep.contains(c) && (moveR && c.estRouge() || moveB && !c.estRouge()))
                     {
-                        Entite ed = c.regarderDansLaDirection(d);
-                        if((ed instanceof gyromite.modele.plateau.Colonne) || ed.peutEtreEcrase())
+                        if(c.avancerDirectionChoisie(d))
                         {
-                            colonnesADep.add(c);
-                            ret = true;
+                            dep_sup = true;
+                            colonnesDep.add(c);
                         }
                     }
-                    else
-                        ret = true;
                 }
-            }
+            } while (dep_sup);
 
-            int i=0;
-
-            while(!colonnesADep.isEmpty())
-            {
-                if(colonnesADep.get(i).avancerDirectionChoisie(d))
-                    colonnesADep.remove(i);
-                else
-                    i=(i+1)%(colonnesADep.size()-1);
-            }
 
             moveR = moveB = false;
             top  = !top;

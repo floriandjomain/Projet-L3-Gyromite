@@ -23,7 +23,7 @@ public class Jeu {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
 
-    public static int NB_BOMBES = 0;
+    public static int nb_bombes = 0;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -51,6 +51,12 @@ public class Jeu {
 
     public Entite[][] getGrille() {
         return grilleEntites;
+    }
+
+    public void setHector(int posX, int posY)
+    {
+        hector = new Heros(this);
+        addEntite(hector, posX, posY);
     }
 
     public Heros getHector() {
@@ -243,13 +249,14 @@ public class Jeu {
                 if(e!=null && e instanceof Bombe)
                 {
                     removeEntite(e);
-                    NB_BOMBES--;
+                    nb_bombes--;
                 }
             }
     }
 
     public boolean finished()
     {
-        return NB_BOMBES==0 && !hector.estMort();
+        System.out.println("Il reste "+nb_bombes+" bombe"+(nb_bombes>1?"s":""));
+        return nb_bombes==0 || hector.estMort();
     }
 }

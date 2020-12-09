@@ -35,7 +35,10 @@ public class Bot extends EntiteDynamique {
         Entite cible = regarderDansLaDirection(d);
 
         if(cible!=null && cible instanceof Heros)
+        {
+            System.out.println("mouahaha j'ai tué Hector !");
             ((Heros)cible).mourir();
+        }
 
         switch(d)
         {

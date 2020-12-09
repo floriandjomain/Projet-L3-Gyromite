@@ -5,6 +5,8 @@ import gyromite.modele.plateau.EntiteDynamique;
 import gyromite.modele.plateau.Heros;
 import gyromite.modele.plateau.Bot;
 
+import java.awt.Point;
+import gyromite.modele.plateau.Jeu;
 /**
  * Controle4Directions permet d'appliquer une direction (connexion avec le clavier) à un ensemble d'entités dynamiques
  */

@@ -30,49 +30,60 @@ public class Parse {
         String [] params = line.split(",");
 
         try {
-          int character = Integer.parseInt(params[0]);
+          char character = params[0].charAt(0);
           int posX = Integer.parseInt(params[1]);
           int posY = Integer.parseInt(params[2]);
 
           switch (character) {
-            case 0 : //heros
-              Heros h = new Heros(_jeu);
-              _jeu.addEntite(h, posX, posY);
-              Controle4Directions.getInstance().addEntiteDynamique(h);
-              g.addEntiteDynamique(h);
+            case 'h' : //heros
+              System.out.println("un héros est arrivé");
+              _jeu.setHector(posX,posY);
+              Controle4Directions.getInstance().addEntiteDynamique(_jeu.getHector());
+              g.addEntiteDynamique(_jeu.getHector());
               break;
 
-            case 1 : //mur
+            case 'm' : //mur
               _jeu.addEntite(new Mur(_jeu), posX, posY);
               break;
 
-            case 2 : //corde
-              _jeu.addEntite(new Corde(_jeu), posX, posY);
+            case 'c' : //corde OU Colonne
+              if(params[0].length()==1)
+              {
+                  _jeu.addEntite(new Corde(_jeu), posX, posY);
+              }
+              else
+              {
+                  if(params[0].charAt(1)=='b')
+                  {
+                      //Colonne bleue
+                      gyromite.modele.plateau.Colonne cb = new gyromite.modele.plateau.Colonne(_jeu, false);
+                      _jeu.addEntite(cb, posX, posY);
+                      Colonne.getInstance().addEntiteDynamique(cb);
+                  }
+                  else
+                  {
+                      //Colonne rouge
+                      gyromite.modele.plateau.Colonne cr = new gyromite.modele.plateau.Colonne(_jeu, true);
+                      _jeu.addEntite(cr, posX, posY);
+                      Colonne.getInstance().addEntiteDynamique(cr);
+                  }
+              }
               break;
 
-            case 3 : //Colonne bleue
-              gyromite.modele.plateau.Colonne cb = new gyromite.modele.plateau.Colonne(_jeu, false);
-              _jeu.addEntite(cb, posX, posY);
-              Colonne.getInstance().addEntiteDynamique(cb);
-              break;
-
-            case 4 : //Colonne rouge
-              gyromite.modele.plateau.Colonne cr = new gyromite.modele.plateau.Colonne(_jeu, true);
-              _jeu.addEntite(cr, posX, posY);
-              Colonne.getInstance().addEntiteDynamique(cr);
-              break;
-
-            case 5 : //Bot ; IA
+            case 's' : //Bot ; IA
               Bot bot = new Bot(_jeu);
               _jeu.addEntite(bot, posX, posY);
               IA.getInstance().addEntiteDynamique(bot);
+              g.addEntiteDynamique(bot);
               break;
 
-            case 6 : //Bombe : gravité
+            case 'b' : //Bombe : gravité
               Bombe b = new Bombe(_jeu);
               _jeu.addEntite(b, posX, posY);
               g.addEntiteDynamique(b);
               break;
+            default:
+              System.out.println("commentaire croisé");
           }
         }
         catch (NumberFormatException e) {

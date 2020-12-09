@@ -36,9 +36,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoSmick;
-    private ImageIcon icoColonne;
     private ImageIcon icoBombe;
     private ImageIcon icoEchelle;
+    private ImageIcon[][] icoColonne = new ImageIcon[2][3];
     //private ImageIcon icoColonneR, icoColonneB;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -78,7 +78,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoHero    = chargerIcone(path+"Heros.png");
         icoSmick   = chargerIcone(path+"Smick.png");
         icoVide    = chargerIcone(path+"Vide.png");
-        icoColonne = chargerIcone(path+"Colonne.png");
+        icoColonne[0][0] = chargerIcone(path+"ColonneR_top.png");
+        icoColonne[0][1] = chargerIcone(path+"ColonneR.png");
+        icoColonne[0][2] = chargerIcone(path+"ColonneR_bot.png");
+        icoColonne[1][0] = chargerIcone(path+"ColonneB_top.png");
+        icoColonne[1][1] = chargerIcone(path+"ColonneB.png");
+        icoColonne[1][2] = chargerIcone(path+"ColonneB_bot.png");
         icoBombe   = chargerIcone(path+"Bombe.png");
         //icoEchelle = ;
         /*BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
@@ -142,7 +147,18 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof gyromite.modele.plateau.Colonne) {
-                    tabJLabel[x][y].setIcon(icoColonne);
+                    boolean coul = ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y]).estRouge();
+                    int pos  = 1;
+
+                    if(y==0 || !(jeu.getGrille()[x][y-1] instanceof gyromite.modele.plateau.Colonne)
+                            || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y-1]).estRouge()!=coul) //if top
+                        pos--;
+
+                    if(y==sizeY-1 || !(jeu.getGrille()[x][y+1] instanceof gyromite.modele.plateau.Colonne)
+                    || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x][y+1]).estRouge()!=coul)//if bottom
+                        pos++;
+
+                    tabJLabel[x][y].setIcon(icoColonne[(coul?0:1)][pos]);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {

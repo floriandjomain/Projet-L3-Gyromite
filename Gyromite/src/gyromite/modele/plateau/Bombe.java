@@ -4,7 +4,7 @@ public class Bombe extends EntiteDynamique
 {
     public Bombe(Jeu _jeu) {
         super(_jeu);
-        jeu.NB_BOMBES++;
+        jeu.nb_bombes++;
     }
 
     public boolean peutEtreEcrase() { return true; }

@@ -92,6 +92,17 @@ public class Parse {
         }
       }
 
+      //borders
+      for (int x = 0; x < 20; x++) {
+        _jeu.addEntite(new Mur(_jeu), x, 0);
+        _jeu.addEntite(new Mur(_jeu), x, 9);
+      }
+
+      for (int y = 1; y < 9; y++) {
+        _jeu.addEntite(new Mur(_jeu), 0, y);
+        _jeu.addEntite(new Mur(_jeu), 19, y);
+      }
+
       //ordonnanceur
       _jeu.getOrdonnanceur().add(Controle4Directions.getInstance());
       _jeu.getOrdonnanceur().add(Colonne.getInstance());

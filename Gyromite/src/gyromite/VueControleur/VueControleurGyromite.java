@@ -85,7 +85,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoColonne[1][1] = chargerIcone(path+"ColonneB.png");
         icoColonne[1][2] = chargerIcone(path+"ColonneB_bot.png");
         icoBombe   = chargerIcone(path+"Bombe.png");
-        //icoEchelle = ;
+        icoEchelle = chargerIcone(path+"Echelle.png");
         /*BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
         BufferedImage imColonneB = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
 
@@ -163,6 +163,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
                     tabJLabel[x][y].setIcon(icoSmick);
+                } else if (jeu.getGrille()[x][y] instanceof Corde) {
+                  tabJLabel[x][y].setIcon(icoEchelle);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }

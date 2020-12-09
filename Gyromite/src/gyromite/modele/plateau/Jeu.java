@@ -24,8 +24,11 @@ public class Jeu {
     public static final int SIZE_Y = 10;
 
     public static int nb_bombes = 0;
+    public static int nb_bombes_debut = 0;
     public static int points = 0;
     public static int current_level = 1;
+
+    private Parse p;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -39,7 +42,7 @@ public class Jeu {
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
 
     public Jeu() {
-        // initialisationDesEntites();
+        //p = new Parse(this);
     }
 
     public void resetCmptDepl() {
@@ -67,8 +70,8 @@ public class Jeu {
 
     private void initialisationDesEntites()
     {
-        Parse p = new Parse("res/1level.txt",this);
-        p.readFile();
+        //Parse p = new Parse("res/1level.txt",this);
+        //p.readFile();
     }
 
     public void addEntite(Entite e, int x, int y)
@@ -228,7 +231,7 @@ public class Jeu {
       grilleEntites = new Entite[SIZE_X][SIZE_Y];
       // map = new HashMap<Entite, Point>();
       ordonnanceur.clear();
-      Parse p = new Parse("res/"+level+"level.txt",this);
+      p = new Parse(this,"./res/"+level+"level.txt");
       return p.readFile();
     }
 }

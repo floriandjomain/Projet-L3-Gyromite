@@ -16,9 +16,9 @@ public class Parse {
   protected File _file;
   protected Jeu _jeu;
 
-  public Parse(String filepath, Jeu jeu) {
-    _file = new File(filepath);
+  public Parse(Jeu jeu, String filepath) {
     _jeu = jeu;
+    _file = new File(filepath);
   }
 
   public boolean readFile() {
@@ -115,6 +115,8 @@ public class Parse {
       _jeu.getOrdonnanceur().add(Colonne.getInstance());
       _jeu.getOrdonnanceur().add(IA.getInstance());
       _jeu.getOrdonnanceur().add(g);
+
+      _jeu.nb_bombes_debut = _jeu.nb_bombes;
 
       scan.close();
       return true;

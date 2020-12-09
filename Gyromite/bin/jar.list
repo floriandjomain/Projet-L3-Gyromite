@@ -13,6 +13,7 @@ gyromite/modele/plateau/Bot.class
 gyromite/modele/plateau/Echelle.class
 gyromite/modele/plateau/Bombe.class
 gyromite/modele/plateau/Colonne.class
+gyromite/modele/plateau/Corde.class
 gyromite/modele/plateau/Entite.class
 gyromite/modele/plateau/EntiteDynamique.class
 gyromite/modele/plateau/EntiteStatique.class
@@ -20,6 +21,7 @@ gyromite/modele/plateau/Heros.class
 gyromite/modele/plateau/Jeu.class
 gyromite/modele/plateau/Jeu$1.class
 gyromite/modele/plateau/Mur.class
+gyromite/modele/plateau/Parse.class
 
 gyromite/VueControleur/VueControleurGyromite.class
 gyromite/VueControleur/VueControleurGyromite$1.class

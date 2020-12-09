@@ -59,7 +59,7 @@ public class Jeu {
     }
 
     private void initialisationDesEntites() {
-        hector = new Heros(this);
+        /*hector = new Heros(this);
         addEntite(hector, 2, 1);
 
         Gravite g = new Gravite();
@@ -103,10 +103,12 @@ public class Jeu {
         }
 
         addEntite(new Mur(this), 2, 6);
-        addEntite(new Mur(this), 3, 6);
+        addEntite(new Mur(this), 3, 6);*/
+        Parse p = new Parse("res/level.txt",this);
+        p.readFile();
     }
 
-    private void addEntite(Entite e, int x, int y)
+    public void addEntite(Entite e, int x, int y)
     {
         grilleEntites[x][y] = e;
         map.put(e, new Point(x, y));

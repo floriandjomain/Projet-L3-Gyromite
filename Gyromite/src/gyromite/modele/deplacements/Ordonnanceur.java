@@ -56,6 +56,9 @@ public class Ordonnanceur extends Observable implements Runnable {
             }
         }
 
+        System.out.println("partie terminée");
+        
+        setChanged();
         notifyObservers();
     }
 }

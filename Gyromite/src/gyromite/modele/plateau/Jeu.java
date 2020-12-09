@@ -229,7 +229,7 @@ public class Jeu {
 
     public boolean loadLevel(int level) {
       grilleEntites = new Entite[SIZE_X][SIZE_Y];
-      // map = new HashMap<Entite, Point>();
+      map.clear();
       ordonnanceur.clear();
       p = new Parse(this,"./res/"+level+"level.txt");
       return p.readFile();

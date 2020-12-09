@@ -170,12 +170,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     else
                     {
                         if(x==0 || !(jeu.getGrille()[x-1][y] instanceof gyromite.modele.plateau.Colonne)
-                            || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x-1][y]).estRouge()!=coul) //if left
-                            pos--;
+                            || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x-1][y]).estRouge()!=coul) //if right
+                            pos++;
 
                         if(x==sizeX-1 || !(jeu.getGrille()[x+1][y] instanceof gyromite.modele.plateau.Colonne)
-                        || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x+1][y]).estRouge()!=coul)//if right
-                            pos++;
+                        || ((gyromite.modele.plateau.Colonne) jeu.getGrille()[x+1][y]).estRouge()!=coul)//if left
+                            pos--;
                     }
 
                     tabJLabel[x][y].setIcon(icoColonne[(coul?0:1)][pos][(vertical?0:1)]);

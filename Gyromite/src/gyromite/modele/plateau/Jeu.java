@@ -39,7 +39,7 @@ public class Jeu {
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
 
     public Jeu() {
-        initialisationDesEntites();
+        // initialisationDesEntites();
     }
 
     public void resetCmptDepl() {
@@ -67,7 +67,7 @@ public class Jeu {
 
     private void initialisationDesEntites()
     {
-        Parse p = new Parse("res/level.txt",this);
+        Parse p = new Parse("res/1level.txt",this);
         p.readFile();
     }
 
@@ -228,7 +228,7 @@ public class Jeu {
       grilleEntites = new Entite[SIZE_X][SIZE_Y];
       // map = new HashMap<Entite, Point>();
       ordonnanceur.clear();
-      Parse p = new Parse("res/1level.txt",this);
+      Parse p = new Parse("res/"+level+"level.txt",this);
       return p.readFile();
     }
 }

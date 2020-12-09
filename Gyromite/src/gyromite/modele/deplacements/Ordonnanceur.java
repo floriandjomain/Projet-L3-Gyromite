@@ -36,34 +36,38 @@ public class Ordonnanceur extends Observable implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         boolean update = false;
-        while (jeu.loadLevel(jeu.current_level)) {
-          while(!jeu.finished()) {
-              jeu.resetCmptDepl();
-              for (RealisateurDeDeplacement d : lstDeplacements) {
-                  if (d.realiserDeplacement())
-                      update = true;
-              }
 
-              Controle4Directions.getInstance().resetDirection();
+        while (jeu.loadLevel(jeu.current_level))
+        {
+            while(!jeu.finished())
+            {
+                jeu.resetCmptDepl();
+                for (RealisateurDeDeplacement d : lstDeplacements)
+                {
+                    if (d.realiserDeplacement())
+                        update = true;
+                }
 
-              if (update) {
-                  setChanged();
-                  notifyObservers();
-              }
+                Controle4Directions.getInstance().resetDirection();
 
-              if(jeu.points>0)
-                  jeu.points--;
+                if (update)
+                {
+                    setChanged();
+                    notifyObservers();
+                }
 
-              try {
-                  sleep(pause);
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
-              }
-          }
-          jeu.current_level++;
+                if(jeu.points>0)
+                    jeu.points--;
+
+                try { sleep(pause); }
+                catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            jeu.current_level++;
         }
+
         System.out.println("partie terminée - "+jeu.points+"points");
 
         setChanged();

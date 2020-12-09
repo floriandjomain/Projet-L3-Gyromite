@@ -4,6 +4,14 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
+import gyromite.modele.deplacements.Colonne;
+import gyromite.modele.deplacements.Direction;
+import gyromite.modele.deplacements.Controle4Directions;
+import gyromite.modele.deplacements.RealisateurDeDeplacement;
+import gyromite.modele.deplacements.Ordonnanceur;
+import gyromite.modele.deplacements.IA;
+import gyromite.modele.deplacements.Gravite;
+
 public class Parse {
   protected File _file;
   protected Jeu _jeu;

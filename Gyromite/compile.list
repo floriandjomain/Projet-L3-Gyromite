@@ -18,5 +18,6 @@ src/gyromite/modele/plateau/EntiteStatique.java
 src/gyromite/modele/plateau/Heros.java
 src/gyromite/modele/plateau/Jeu.java
 src/gyromite/modele/plateau/Mur.java
+src/gyromite/modele/plateau/Parse.java
 
 src/gyromite/VueControleur/VueControleurGyromite.java

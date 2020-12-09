@@ -22,6 +22,10 @@ public class Ordonnanceur extends Observable implements Runnable {
             rd.remove(e);
     }
 
+    public void clear(){
+      lstDeplacements.clear();
+    }
+
     public Ordonnanceur(Jeu _jeu) {
         jeu = _jeu;
     }
@@ -34,31 +38,32 @@ public class Ordonnanceur extends Observable implements Runnable {
     @Override
     public void run() {
         boolean update = false;
+        while (jeu.loadLevel(jeu.current_level)) {
+          while(!jeu.finished()) {
+              jeu.resetCmptDepl();
+              for (RealisateurDeDeplacement d : lstDeplacements) {
+                  if (d.realiserDeplacement())
+                      update = true;
+              }
 
-        while(!jeu.finished()) {
-            jeu.resetCmptDepl();
-            for (RealisateurDeDeplacement d : lstDeplacements) {
-                if (d.realiserDeplacement())
-                    update = true;
-            }
+              Controle4Directions.getInstance().resetDirection();
 
-            Controle4Directions.getInstance().resetDirection();
+              if (update) {
+                  setChanged();
+                  notifyObservers();
+              }
 
-            if (update) {
-                setChanged();
-                notifyObservers();
-            }
+              if(jeu.points>0)
+                  jeu.points--;
 
-            if(jeu.points>0)
-                jeu.points--;
-
-            try {
-                sleep(pause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+              try {
+                  sleep(pause);
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+          }
+          jeu.current_level++;
         }
-
         System.out.println("partie terminée - "+jeu.points+"points");
 
         setChanged();

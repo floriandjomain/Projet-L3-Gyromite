@@ -65,6 +65,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                     case KeyEvent.VK_R : Colonne.getInstance().moveR(); break;
                     case KeyEvent.VK_B : Colonne.getInstance().moveB(); break;
+                    case KeyEvent.VK_SPACE : jeu.killBomb(); break;
                 }
             }
         });
@@ -142,6 +143,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof gyromite.modele.plateau.Colonne) {
                     tabJLabel[x][y].setIcon(icoColonne);
+                } else if (jeu.getGrille()[x][y] instanceof Bombe) {
+                    tabJLabel[x][y].setIcon(icoBombe);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }
@@ -151,7 +154,13 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        mettreAJourAffichage();
+        System.out.println("update : "+jeu.finished());
+
+        if(!jeu.finished())
+            mettreAJourAffichage();
+        else
+            System.exit(0);
+
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

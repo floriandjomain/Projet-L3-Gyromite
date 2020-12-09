@@ -24,6 +24,8 @@ public class Jeu {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
 
+    public static int NB_BOMBES = 0;
+
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
     private HashMap<Entite, Integer> cmptDeplV = new HashMap<Entite, Integer>();
@@ -67,6 +69,10 @@ public class Jeu {
         Bot b = new Bot(this);
         addEntite(b, 5, 9);
 
+        Bombe b2 = new Bombe(this);
+        addEntite(b2,4,4);
+        g.addEntiteDynamique(b2);
+
         IA.getInstance().addEntiteDynamique(b);
         ordonnanceur.add(IA.getInstance());
 
@@ -104,6 +110,13 @@ public class Jeu {
     {
         grilleEntites[x][y] = e;
         map.put(e, new Point(x, y));
+    }
+
+    private void removeEntite(Entite e)
+    {
+        grilleEntites[map.get(e).x][map.get(e).y] = null;
+        map.remove(e);
+        ordonnanceur.remove((EntiteDynamique)e);
     }
 
     /** Permet par exemple a une entité  de percevoir sont environnement proche et de définir sa stratégie de déplacement
@@ -205,5 +218,33 @@ public class Jeu {
 
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
+    }
+
+    public void killBomb()
+    {
+        int x = map.get(hector).x;
+        int y = map.get(hector).y;
+
+        Entite e;
+
+        for(int i=-1; i<2; i++)
+            for(int j=-1; j<2; j++)
+            {
+                e = objetALaPosition(new Point(x+i,y+j));
+
+                System.out.println((x+i) + "," + (y+j) + " : " + (e!=null && e instanceof Bombe));
+
+                if(e!=null && e instanceof Bombe)
+                {
+                    System.out.println("Bombe trouvée !");
+                    removeEntite(e);
+                    NB_BOMBES--;
+                }
+            }
+    }
+
+    public boolean finished()
+    {
+        return NB_BOMBES==0;
     }
 }

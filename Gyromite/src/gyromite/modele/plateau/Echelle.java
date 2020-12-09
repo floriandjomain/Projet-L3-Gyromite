@@ -1,10 +1,9 @@
 package gyromite.modele.plateau;
 
-public class Bombe extends EntiteDynamique
+public class Echelle extends EntiteStatique
 {
-    public Bombe(Jeu _jeu) {
+    public Echelle(Jeu _jeu) {
         super(_jeu);
-        jeu.NB_BOMBES++;
     }
 
     public boolean peutEtreEcrase() { return true; }

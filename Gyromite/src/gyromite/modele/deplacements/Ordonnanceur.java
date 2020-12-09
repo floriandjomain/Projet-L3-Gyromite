@@ -1,6 +1,7 @@
 package gyromite.modele.deplacements;
 
 import gyromite.modele.plateau.Jeu;
+import gyromite.modele.plateau.EntiteDynamique;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -13,6 +14,12 @@ public class Ordonnanceur extends Observable implements Runnable {
     private long pause;
     public void add(RealisateurDeDeplacement deplacement) {
         lstDeplacements.add(deplacement);
+    }
+
+    public void remove(EntiteDynamique e)
+    {
+        for(RealisateurDeDeplacement rd : lstDeplacements)
+            rd.remove(e);
     }
 
     public Ordonnanceur(Jeu _jeu) {
@@ -28,7 +35,7 @@ public class Ordonnanceur extends Observable implements Runnable {
     public void run() {
         boolean update = false;
 
-        while(true) {
+        while(!jeu.finished()) {
             jeu.resetCmptDepl();
             for (RealisateurDeDeplacement d : lstDeplacements) {
                 if (d.realiserDeplacement())
@@ -49,5 +56,6 @@ public class Ordonnanceur extends Observable implements Runnable {
             }
         }
 
+        notifyObservers();
     }
 }

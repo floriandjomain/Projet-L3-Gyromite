@@ -10,6 +10,8 @@ gyromite/modele/deplacements/Ordonnanceur.class
 gyromite/modele/deplacements/RealisateurDeDeplacement.class
 
 gyromite/modele/plateau/Bot.class
+gyromite/modele/plateau/Echelle.class
+gyromite/modele/plateau/Bombe.class
 gyromite/modele/plateau/Colonne.class
 gyromite/modele/plateau/Entite.class
 gyromite/modele/plateau/EntiteDynamique.class

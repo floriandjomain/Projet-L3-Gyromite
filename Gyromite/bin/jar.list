@@ -12,6 +12,7 @@ gyromite/modele/deplacements/RealisateurDeDeplacement.class
 gyromite/modele/plateau/Bot.class
 gyromite/modele/plateau/Bot$1.class
 gyromite/modele/plateau/Bombe.class
+gyromite/modele/plateau/Bonus.class
 gyromite/modele/plateau/Colonne.class
 gyromite/modele/plateau/Corde.class
 gyromite/modele/plateau/Entite.class

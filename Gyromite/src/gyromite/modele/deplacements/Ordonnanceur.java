@@ -49,6 +49,9 @@ public class Ordonnanceur extends Observable implements Runnable {
                 notifyObservers();
             }
 
+            if(jeu.points>0)
+                jeu.points--;
+
             try {
                 sleep(pause);
             } catch (InterruptedException e) {
@@ -56,8 +59,8 @@ public class Ordonnanceur extends Observable implements Runnable {
             }
         }
 
-        System.out.println("partie terminée");
-        
+        System.out.println("partie terminée - "+jeu.points+"points");
+
         setChanged();
         notifyObservers();
     }

@@ -10,6 +10,7 @@ src/gyromite/modele/deplacements/RealisateurDeDeplacement.java
 
 src/gyromite/modele/plateau/Bot.java
 src/gyromite/modele/plateau/Bombe.java
+src/gyromite/modele/plateau/Bonus.java
 src/gyromite/modele/plateau/Colonne.java
 src/gyromite/modele/plateau/Corde.java
 src/gyromite/modele/plateau/Entite.java

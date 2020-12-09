@@ -27,6 +27,7 @@ import gyromite.modele.plateau.*;
  */
 public class VueControleurGyromite extends JFrame implements Observer {
     private Jeu jeu; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    private int nb_bombes_debut;
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
@@ -37,9 +38,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoMur;
     private ImageIcon icoSmick;
     private ImageIcon icoBombe;
-    private ImageIcon icoEchelle;
+    private ImageIcon icoBonus;
+    private ImageIcon icoCorde;
     private ImageIcon[][] icoColonne = new ImageIcon[2][3];
-    //private ImageIcon icoColonneR, icoColonneB;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -48,6 +49,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         sizeX = jeu.SIZE_X;
         sizeY = _jeu.SIZE_Y;
         jeu = _jeu;
+        nb_bombes_debut = jeu.nb_bombes;
 
         chargerLesIcones();
         placerLesComposantsGraphiques();
@@ -65,7 +67,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                     case KeyEvent.VK_R : Colonne.getInstance().moveR(); break;
                     case KeyEvent.VK_B : Colonne.getInstance().moveB(); break;
-                    case KeyEvent.VK_SPACE : jeu.killBomb(); break;
+                    case KeyEvent.VK_SPACE : jeu.ramasser(); break;
                 }
             }
         });
@@ -84,20 +86,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoColonne[1][0] = chargerIcone(path+"ColonneB_top.png");
         icoColonne[1][1] = chargerIcone(path+"ColonneB.png");
         icoColonne[1][2] = chargerIcone(path+"ColonneB_bot.png");
-        icoBombe   = chargerIcone(path+"Bombe.png");
-        icoEchelle = chargerIcone(path+"Echelle.png");
-        /*BufferedImage imColonneR = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
-        BufferedImage imColonneB = new BufferedImage(icoColonne.getImageObserver());//trouver un moyen de faire facilement des colonnes des bleues et rouges
-
-        for(int x=0; x<icoColonne.getIconWidth(); x++)
-            for(int y=0; y<icoColonne.getIconWidth(); y++)
-            {
-                imColonneR.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
-                imColonneB.setRGB(x,y,new Color(imColonneR.getRed()+50,imColonneR.getGreen(),imColonneR.getBlue()).getRGB());
-            }
-        */
-        //icoColonneR = icoColonne;
-        //icoColonneB = icoColonne;
+        icoBombe = chargerIcone(path+"Bombe.png");
+        icoBonus = chargerIcone(path+"Bonus.png");
+        icoCorde = chargerIcone(path+"Echelle.png");
         icoMur = chargerIcone(path+"Mur.png");
     }
 
@@ -115,7 +106,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
     }
 
     private void placerLesComposantsGraphiques() {
-        setTitle("Gyromite");
+        setTitle("Gyromite - ("+jeu.nb_bombes+"/"+nb_bombes_debut+") bombes - "+jeu.points+" points");
+        
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
@@ -137,7 +129,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
-    private void mettreAJourAffichage() {
+    private void mettreAJourAffichage()
+    {
+        setTitle("Gyromite - ("+jeu.nb_bombes+"/"+nb_bombes_debut+") bombes - "+jeu.points+" points");
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
@@ -161,10 +155,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoColonne[(coul?0:1)][pos]);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
+                } else if (jeu.getGrille()[x][y] instanceof Bonus) {
+                    tabJLabel[x][y].setIcon(icoBonus);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
                     tabJLabel[x][y].setIcon(icoSmick);
                 } else if (jeu.getGrille()[x][y] instanceof Corde) {
-                  tabJLabel[x][y].setIcon(icoEchelle);
+                    tabJLabel[x][y].setIcon(icoCorde);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }

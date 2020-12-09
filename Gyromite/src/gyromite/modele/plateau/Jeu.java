@@ -25,6 +25,7 @@ public class Jeu {
 
     public static int nb_bombes = 0;
     public static int points = 0;
+    public static int current_level = 1;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -221,5 +222,13 @@ public class Jeu {
     public boolean finished()
     {
         return nb_bombes==0 || hector.estMort();
+    }
+
+    public boolean loadLevel(int level) {
+      grilleEntites = new Entite[SIZE_X][SIZE_Y];
+      // map = new HashMap<Entite, Point>();
+      ordonnanceur.clear();
+      Parse p = new Parse("res/1level.txt",this);
+      return p.readFile();
     }
 }

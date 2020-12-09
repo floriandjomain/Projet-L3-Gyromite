@@ -21,7 +21,7 @@ public class Parse {
     _jeu = jeu;
   }
 
-  public void readFile() {
+  public boolean readFile() {
     try {
       Scanner scan = new Scanner(_file);
       Gravite g = new Gravite();
@@ -98,14 +98,14 @@ public class Parse {
       }
 
       //borders
-      for (int x = 0; x < 20; x++) {
+      for (int x = 0; x < _jeu.SIZE_X; x++) {
         _jeu.addEntite(new Mur(_jeu), x, 0);
-        _jeu.addEntite(new Mur(_jeu), x, 9);
+        _jeu.addEntite(new Mur(_jeu), x, _jeu.SIZE_Y-1);
       }
 
-      for (int y = 1; y < 9; y++) {
+      for (int y = 1; y < _jeu.SIZE_Y; y++) {
         _jeu.addEntite(new Mur(_jeu), 0, y);
-        _jeu.addEntite(new Mur(_jeu), 19, y);
+        _jeu.addEntite(new Mur(_jeu), _jeu.SIZE_X-1, y);
       }
 
       //ordonnanceur
@@ -115,10 +115,12 @@ public class Parse {
       _jeu.getOrdonnanceur().add(g);
 
       scan.close();
+      return true;
     }
     catch (FileNotFoundException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
+      return false;
     }
   }
 }

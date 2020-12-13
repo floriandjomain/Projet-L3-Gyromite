@@ -150,6 +150,9 @@ public class Jeu {
     private Point calculerPointCible(Point pCourant, Direction d) {
         Point pCible = null;
 
+        if(pCourant==null)
+            return null;
+
         switch(d) {
             case haut: pCible = new Point(pCourant.x, pCourant.y - 1); break;
             case bas : pCible = new Point(pCourant.x, pCourant.y + 1); break;
@@ -163,8 +166,8 @@ public class Jeu {
 
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
         Entite bg = grilleEntites[pCible.x][pCible.y];
-        grilleEntites[pCourant.x][pCourant.y] = e.background;
-        e.background = bg;
+        grilleEntites[pCourant.x][pCourant.y] = e.getBackground();
+        e.setBackground(bg);
         grilleEntites[pCible.x][pCible.y] = e;
         map.put(e, pCible);
     }
@@ -172,6 +175,7 @@ public class Jeu {
     /** Indique si p est contenu dans la grille
      */
     private boolean contenuDansGrille(Point p) {
+        if(p==null) return false;
         return p.x >= 0 && p.x < SIZE_X && p.y >= 0 && p.y < SIZE_Y;
     }
 
@@ -221,6 +225,27 @@ public class Jeu {
                     }
                 }
             }
+
+        if (!aRamasseObj)
+        {
+            e = hector.getBackground();
+
+            if(e!=null && (e instanceof Bombe || e instanceof Bonus))
+            {
+                removeEntite(e);
+                hector.setBackground(null);
+                if(e instanceof Bombe)
+                {
+                    points+=100;
+                    nb_bombes--;
+                }
+                else
+                {
+                    points+=200;
+                }
+                aRamasseObj = true;
+            }
+        }
     }
 
     public boolean finished()
@@ -230,7 +255,7 @@ public class Jeu {
 
     public boolean loadLevel(int level) {
         ordonnanceur.clear();
-        //map.clear();
+        map.clear();
         grilleEntites = new Entite[SIZE_X][SIZE_Y];
         p = new Parse(this,"./res/"+level+"level.txt");
         return p.readFile();

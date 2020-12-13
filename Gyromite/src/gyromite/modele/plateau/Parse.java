@@ -117,13 +117,12 @@ public class Parse {
       _jeu.getOrdonnanceur().add(g);
 
       _jeu.nb_bombes_debut = _jeu.nb_bombes;
-
+      System.out.println(_jeu.nb_bombes + "/" + _jeu.nb_bombes_debut);
       scan.close();
       return true;
     }
     catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
+      System.out.println("Aucune ressource n'a été trouvée pour le niveau suivant.");
       return false;
     }
   }

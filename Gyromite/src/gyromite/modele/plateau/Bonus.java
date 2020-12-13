@@ -8,5 +8,5 @@ public class Bonus extends EntiteDynamique
 
     public boolean peutEtreEcrase() { return true; }
     public boolean peutServirDeSupport() { return false; }
-    public boolean peutPermettreDeMonterDescendre() { return false; };
+    public boolean peutPermettreDeMonterDescendre() { return true; };
 }

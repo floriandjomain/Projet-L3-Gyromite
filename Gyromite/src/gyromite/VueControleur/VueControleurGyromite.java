@@ -142,7 +142,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
      */
     private void mettreAJourAffichage()
     {
-        setTitle("Gyromite - ("+jeu.nb_bombes+"/"+nb_bombes_debut+") bombes - "+jeu.points+" points");
+        setTitle("Gyromite - ("+jeu.nb_bombes+"/"+jeu.nb_bombes_debut+") bombes - "+jeu.points+" points");
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {

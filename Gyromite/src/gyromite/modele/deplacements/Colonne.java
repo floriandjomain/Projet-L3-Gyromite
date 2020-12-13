@@ -1,8 +1,6 @@
 package gyromite.modele.deplacements;
 
-import gyromite.modele.plateau.Entite;
-import gyromite.modele.plateau.EntiteDynamique;
-import gyromite.modele.plateau.Heros;
+import gyromite.modele.plateau.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,12 +52,12 @@ public class Colonne extends RealisateurDeDeplacement
                     {
                         d = (c.estVerticale()?(c.top()?Direction.bas:Direction.haut):(c.top()?Direction.gauche:Direction.droite));
 
-                        if(d==Direction.haut)
+                        if(d!=Direction.bas)
                         {
-                            Entite ed = c.regarderDansLaDirection(d);
-
-                            if(ed!=null && ed instanceof Heros)
-                                ((Heros) ed).avancerDirectionChoisie(d);
+                            Entite h = c.regarderDansLaDirection(Direction.haut);
+                            if(h!=null
+                            && (h instanceof Heros || h instanceof Bot || h instanceof Bombe || h instanceof Bonus))
+                                ((EntiteDynamique)h).avancerDirectionChoisie(d);
                         }
 
                         if(c.avancerDirectionChoisie(d))

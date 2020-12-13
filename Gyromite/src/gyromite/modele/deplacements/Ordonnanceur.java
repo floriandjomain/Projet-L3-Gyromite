@@ -42,6 +42,8 @@ public class Ordonnanceur extends Observable implements Runnable {
 
         while (jeu.loadLevel(jeu.current_level))
         {
+            // System.out.println(jeu.current_level + ", " + );
+
             while(!jeu.finished())
             {
                 jeu.resetCmptDepl();

@@ -93,6 +93,7 @@ public class Jeu {
      */
     public Entite regarderDansLaDirection(Entite e, Direction d) {
         Point positionEntite = map.get(e);
+        if(positionEntite==null) return null;
         return objetALaPosition(calculerPointCible(positionEntite, d));
     }
 
@@ -149,9 +150,6 @@ public class Jeu {
 
     private Point calculerPointCible(Point pCourant, Direction d) {
         Point pCible = null;
-
-        if(pCourant==null)
-            return null;
 
         switch(d) {
             case haut: pCible = new Point(pCourant.x, pCourant.y - 1); break;

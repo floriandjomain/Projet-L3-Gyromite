@@ -59,6 +59,16 @@ public class Colonne extends RealisateurDeDeplacement
                             && (h instanceof Heros || h instanceof Bot || h instanceof Bombe || h instanceof Bonus))
                                 ((EntiteDynamique)h).avancerDirectionChoisie(d);
                         }
+                        else
+                        {
+                            Entite cible = c.regarderDansLaDirection(d);
+
+                            if(cible!=null && cible instanceof Heros)
+                            {
+                                System.out.println("Hector vient de se fare écraser...");
+                                ((Heros)cible).mourir();
+                            }
+                        }
 
                         if(c.avancerDirectionChoisie(d))
                         {
